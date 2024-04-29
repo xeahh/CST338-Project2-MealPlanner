@@ -1,6 +1,7 @@
 package com.example.mealplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.mealplanner.database.MealPlannerRepository;
+import com.example.mealplanner.database.entities.User;
 import com.example.mealplanner.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.mealplanner.MAIN_ACTIVITY_USER_ID";
+    private static final int LOGGED_OUT = -1;
     private ActivityMainBinding binding;
-    private MealPlannerRepository repository;
-
     public static final String TAG = "MEALPLANNER";
     int loggedInUserId = -1;
 
@@ -25,12 +26,6 @@ public class MainActivity extends AppCompatActivity {
         binding = com.example.mealplanner.databinding.ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginUser();
-
-        if(loggedInUserId == -1) {
-            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
-            startActivity(intent);
-        }
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser() {
-        //TODO
-        loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, -1);
-    }
 
     static Intent mainActivityIntentFactory(Context context, int userId) {
         Intent intent = new Intent(context, MainActivity.class);

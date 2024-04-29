@@ -3,6 +3,8 @@ package com.example.mealplanner.database;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.mealplanner.MainActivity;
 import com.example.mealplanner.database.entities.MealPlanner;
 import com.example.mealplanner.database.entities.User;
@@ -17,7 +19,7 @@ public class MealPlannerRepository {
     private final UserDAO userDAO;
     private ArrayList<MealPlanner> allLogs;
 
-    private static MealPlannerRepository repository;
+    public static MealPlannerRepository repository;
 
     public MealPlannerRepository(Application application) {
         MealPlannerDatabase db = MealPlannerDatabase.getDatabase(application);
@@ -75,20 +77,11 @@ public class MealPlannerRepository {
         });
     }
 
-    public User getUserByUserName(String username) {
-        Future<User> future = MealPlannerDatabase.databaseWriteExecutor.submit(
-                new Callable<User>() {
-                    @Override
-                    public User call() throws Exception {
-                        return userDAO.getUserByUsername(username);
-                    }
-                }
-        );
-        try {
-            future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.i(MainActivity.TAG, "Problem when getting user by username");
-        }
-        return null;
+    public LiveData<User> getUserByUserName(String username) {
+        return userDAO.getUserByUsername(username);
+    }
+
+    public LiveData<User> getUserByUserId(int loggedInUserId) {
+        return userDAO.getUserById(loggedInUserId);
     }
 }
