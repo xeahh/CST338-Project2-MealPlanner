@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         repository = MealPlannerRepository.getRepository(getApplication());
         binding.loginButton2.setOnClickListener(new View.OnClickListener() {
             @Override
