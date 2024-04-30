@@ -50,12 +50,10 @@ public class CreateAccountActivity extends AppCompatActivity  {
         }
         LiveData<User> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this,user -> {
-            if (user != null) {
-                toastMaker("Username already exists");
-            } else {
+            if (user == null) { // Username doesn't exist
                 String password1 = binding.editPassword.getText().toString();
                 String password2 = binding.confirmPassword.getText().toString();
-                if (password1.equals(password2)){
+                if (password1.equals(password2)) {
                     User newUser = new User(username, password1);
                     repository.insertUser(newUser);
                     startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class)
@@ -65,6 +63,8 @@ public class CreateAccountActivity extends AppCompatActivity  {
                     toastMaker("Passwords do not match.");
                     binding.editPassword.setSelection(0);
                 }
+            } else { // Username already exists
+                toastMaker("Username already exists");
             }
         });
     }

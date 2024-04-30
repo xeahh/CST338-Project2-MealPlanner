@@ -15,9 +15,12 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealplanner.database.MealPlannerRepository;
 import com.example.mealplanner.database.entities.User;
+import com.example.mealplanner.databinding.ActivityLoginBinding;
+import com.example.mealplanner.databinding.LandingPageBinding;
 
 
 public class LandingPageActivity extends AppCompatActivity {
+    private LandingPageBinding binding;
     private static final int LOGGED_OUT = -1;
     private static final String SHARED_PREFERENCE_USERID_KEY = "com.example.mealplanner.SHARED_PREFERENCE_USERID_KEY";
     private static final String SHARED_PREFERENCE_USERID_VALUE = "com.example.mealplanner.SHARED_PREFERENCE_USERID_VALUE";
@@ -30,16 +33,23 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.landing_page);
+        binding = LandingPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         repository = MealPlannerRepository.getRepository(getApplication());
 
         loggedInUserId = getIntent().getIntExtra("userId", LOGGED_OUT);
         Log.d("LandingPageActivity", "Received userId: " + loggedInUserId);
 
         loginUser(savedInstanceState);
-
-        Button logoutButton = findViewById(R.id.logout_button);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        binding.usersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LandingPageActivity.this, UsersActivity.class)
+                        .putExtra("userId", loggedInUserId);
+                startActivity(intent);
+            }
+        });
+        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LandingPageActivity.this, LoginActivity.class);
@@ -72,10 +82,12 @@ public class LandingPageActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
+                Log.d("LandingPageActivity", "User loaded: " + user.toString());
                 invalidateOptionsMenu();
                 if (user.isAdmin()) {
-                    Button adminButton = findViewById(R.id.users_button);
-                    adminButton.setVisibility(View.VISIBLE);
+                    binding.usersButton.setVisibility(View.VISIBLE);
+                } else {
+                    binding.usersButton.setVisibility(View.GONE);
                 }
             }
             else {

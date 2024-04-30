@@ -23,6 +23,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".LandingPageActivity" />
         <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".UsersActivity" />
     </application>
 
 </manifest>

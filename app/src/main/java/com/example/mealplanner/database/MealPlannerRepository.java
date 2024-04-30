@@ -10,6 +10,7 @@ import com.example.mealplanner.database.entities.MealPlanner;
 import com.example.mealplanner.database.entities.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -83,5 +84,16 @@ public class MealPlannerRepository {
 
     public LiveData<User> getUserByUserId(int loggedInUserId) {
         return userDAO.getUserById(loggedInUserId);
+    }
+
+    public LiveData<List<User>> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+
+    public void deleteUser(User user) {
+        MealPlannerDatabase.databaseWriteExecutor.execute(() ->
+        {
+            userDAO.delete(user);
+        });
     }
 }
