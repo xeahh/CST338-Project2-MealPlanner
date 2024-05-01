@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:backgroundTint="#00FFFFFF"
-        android:text="@string/go_back"
+        android:text="@string/home"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"

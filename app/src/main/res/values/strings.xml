@@ -17,4 +17,6 @@
     <string name="go_back_to_login">Go back to login</string>
     <string name="go_back">Go back</string>
     <string name="list_of_users">List of Users</string>
+    <string name="home">Home</string>
+    <string name="delete">Delete</string>
 </resources>

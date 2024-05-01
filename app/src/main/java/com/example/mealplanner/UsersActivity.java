@@ -54,7 +54,6 @@ public class UsersActivity extends AppCompatActivity {
         adapter.setListener(new UserAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(int position) {
-                // Handle delete button click here
                 User userToDelete = adapter.getCurrentList().get(position);
                 userViewModel.deleteUser(userToDelete);
             }
