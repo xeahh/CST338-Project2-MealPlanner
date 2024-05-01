@@ -11,17 +11,17 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealplanner.database.MealPlannerRepository;
 import com.example.mealplanner.database.entities.User;
-import com.example.mealplanner.databinding.CreateAccountBinding;
+import com.example.mealplanner.databinding.ActivityCreateAccountBinding;
 
 
 public class CreateAccountActivity extends AppCompatActivity  {
-    private CreateAccountBinding binding;
+    private ActivityCreateAccountBinding binding;
     private MealPlannerRepository repository;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = CreateAccountBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         repository = MealPlannerRepository.getRepository(getApplication());
