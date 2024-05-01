@@ -56,8 +56,9 @@ public class CreateAccountActivity extends AppCompatActivity  {
                 if (password1.equals(password2)) {
                     User newUser = new User(username, password1);
                     repository.insertUser(newUser);
-                    startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class)
-                            .putExtra("username", username));
+                    startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+                    toastMaker("Account successfully created");
+
                     finish();
                 } else {
                     toastMaker("Passwords do not match.");
@@ -66,6 +67,7 @@ public class CreateAccountActivity extends AppCompatActivity  {
             } else { // Username already exists
                 toastMaker("Username already exists");
             }
+            userObserver.removeObservers(this);
         });
     }
 
