@@ -17,11 +17,14 @@ public class MealPlannerActivity extends AppCompatActivity {
         binding = ActivityMealPlannerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        int loggedInUserId = getIntent().getIntExtra("userId", -1);
+
         binding.toolbar.setNavigationIcon(R.drawable.arrow);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class));
+                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class)
+                        .putExtra("userId", loggedInUserId));
             }
         });
 

@@ -37,7 +37,7 @@ public class CreateAccountActivity extends AppCompatActivity  {
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class));
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
     }

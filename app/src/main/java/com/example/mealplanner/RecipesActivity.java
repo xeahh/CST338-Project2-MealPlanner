@@ -6,8 +6,14 @@ import android.view.View;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.databinding.ActivityRecipesBinding;
+import com.example.mealplanner.viewHolders.RecipeAdapter;
+
+import java.util.ArrayList;
 
 public class RecipesActivity extends AppCompatActivity {
     private ActivityRecipesBinding binding;
@@ -18,13 +24,27 @@ public class RecipesActivity extends AppCompatActivity {
         binding = ActivityRecipesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        int loggedInUserId = getIntent().getIntExtra("userId", -1);
+
         binding.toolbar.setNavigationIcon(R.drawable.arrow);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class));
+                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class)
+                        .putExtra("userId", loggedInUserId));
             }
         });
 
+        RecyclerView recyclerView = binding.recipesRecyclerview;
+        final RecipeAdapter adapter = new RecipeAdapter(new RecipeAdapter.RecipeDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        recipeList.add(new Recipe(R.drawable.oatmeal, "Oatmeal"));
+
+        adapter.submitList(recipeList);
     }
 }

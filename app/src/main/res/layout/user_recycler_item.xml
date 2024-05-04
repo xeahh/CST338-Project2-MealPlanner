@@ -18,8 +18,8 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
+        android:layout_marginStart="30dp"
         android:backgroundTint="@color/pink"
-        android:layout_marginStart="30dp"/>
+        android:text="@string/delete" />
 
 </LinearLayout>
