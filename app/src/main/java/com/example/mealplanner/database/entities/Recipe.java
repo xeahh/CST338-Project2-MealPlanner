@@ -1,14 +1,18 @@
 package com.example.mealplanner.database.entities;
 
-
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
     private int image;
     private String name;
-    public Recipe(int image, String name) {
+    private List<String> ingredients;
+
+    public Recipe(int image, String name, List<String> ingredients) {
         this.image = image;
         this.name = name;
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -27,7 +31,17 @@ public class Recipe {
     public int getImage() {
         return image;
     }
+
     public String getName() {
         return name;
     }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public static List<String> createIngredients(String... ingredients) {
+        return Arrays.asList(ingredients);
+    }
 }
+

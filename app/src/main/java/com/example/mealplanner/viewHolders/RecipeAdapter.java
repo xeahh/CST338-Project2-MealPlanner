@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.mealplanner.database.entities.Recipe;
 
-import java.util.ArrayList;
 
 public class RecipeAdapter extends ListAdapter<Recipe, RecipeViewHolder> {
-    private ArrayList<Recipe> recipeList;
 
     public RecipeAdapter(@NonNull DiffUtil.ItemCallback<Recipe> diffCallback) {
         super(diffCallback);

@@ -37,13 +37,13 @@ public class UsersActivity extends AppCompatActivity {
         repository = MealPlannerRepository.getRepository(getApplication());
 
         int loggedInUserId = getIntent().getIntExtra("userId", -1);
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
+
+        binding.toolbar.setNavigationIcon(R.drawable.arrow);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UsersActivity.this, LandingPageActivity.class)
-                        .putExtra("userId", loggedInUserId);
-                startActivity(intent);
-                finish();
+                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class)
+                        .putExtra("userId", loggedInUserId));
             }
         });
 
