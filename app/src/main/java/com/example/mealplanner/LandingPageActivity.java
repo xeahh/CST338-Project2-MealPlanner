@@ -41,6 +41,22 @@ public class LandingPageActivity extends AppCompatActivity {
         Log.d("LandingPageActivity", "Received userId: " + loggedInUserId);
 
         loginUser(savedInstanceState);
+
+        binding.mealplannerbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LandingPageActivity.this, MealPlannerActivity.class)
+                        .putExtra("userId", loggedInUserId);
+                startActivity(intent);
+            }
+        });
+        binding.recipesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LandingPageActivity.this, RecipesActivity.class)
+                        .putExtra("userId", loggedInUserId));
+            }
+        });
         binding.usersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

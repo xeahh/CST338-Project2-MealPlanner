@@ -24,6 +24,8 @@
         <activity android:name=".LandingPageActivity" />
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".UsersActivity" />
+        <activity android:name=".MealPlannerActivity" />
+        <activity android:name=".RecipesActivity"/>
     </application>
 
 </manifest>

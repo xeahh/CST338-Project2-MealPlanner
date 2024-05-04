@@ -32,12 +32,12 @@ public class CreateAccountActivity extends AppCompatActivity  {
                 verifyUser();
             }
         });
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
+        binding.toolbar.setNavigationIcon(R.drawable.arrow);
+
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                startActivity(new Intent(getApplicationContext(),LandingPageActivity.class));
             }
         });
     }
@@ -52,6 +52,10 @@ public class CreateAccountActivity extends AppCompatActivity  {
         userObserver.observe(this,user -> {
             if (user == null) { // Username doesn't exist
                 String password1 = binding.editPassword.getText().toString();
+                if (password1.isEmpty()) {
+                    toastMaker("Password may not be blank");
+                    return;
+                }
                 String password2 = binding.confirmPassword.getText().toString();
                 if (password1.equals(password2)) {
                     User newUser = new User(username, password1);

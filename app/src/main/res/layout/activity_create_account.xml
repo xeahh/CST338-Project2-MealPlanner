@@ -7,26 +7,32 @@
 
     <EditText
         android:id="@+id/editUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
+        android:background="#45FFB6C1"
         android:ems="10"
+        android:textAlignment="center"
         android:hint="@string/enter_username"
         android:inputType="text"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintVertical_bias="0.198" />
 
     <EditText
         android:id="@+id/editPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
         android:layout_marginTop="28dp"
+        android:background="#45FFB6C1"
+        android:textAlignment="center"
         android:ems="10"
         android:hint="@string/enter_password"
         android:inputType="textPassword"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,12 +40,15 @@
 
     <EditText
         android:id="@+id/confirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
         android:layout_marginTop="28dp"
+        android:background="#45FFB6C1"
         android:ems="10"
         android:hint="@string/confirm_password"
+        android:textAlignment="center"
         android:inputType="textPassword"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,26 +56,31 @@
 
     <Button
         android:id="@+id/create_account_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="44dp"
         android:backgroundTint="@color/pink"
         android:text="@string/create_account"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="@string/go_back"
-        android:textColor="@color/black"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/pink"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
