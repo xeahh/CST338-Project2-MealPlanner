@@ -44,6 +44,10 @@ public class RecipesActivity extends AppCompatActivity {
         ArrayList<Recipe> recipeList = new ArrayList<>();
 
         recipeList.add(new Recipe(R.drawable.oatmeal, "Oatmeal"));
+        recipeList.add(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs"));
+        recipeList.add(new Recipe(R.drawable.turkeyhummus, "Turkey and Hummus Wrap"));
+        recipeList.add(new Recipe(R.drawable.chickentacos, "Chicken Tacos"));
+        recipeList.add(new Recipe(R.drawable.toast, "Toast"));
 
         adapter.submitList(recipeList);
     }
