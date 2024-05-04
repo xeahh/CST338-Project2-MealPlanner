@@ -1,6 +1,5 @@
 package com.example.mealplanner.database.entities;
 
-import android.graphics.drawable.Drawable;
 
 import java.util.Objects;
 
