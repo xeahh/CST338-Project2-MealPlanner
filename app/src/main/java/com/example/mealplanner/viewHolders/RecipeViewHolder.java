@@ -15,11 +15,13 @@ import com.example.mealplanner.database.entities.Recipe;
 public class RecipeViewHolder extends RecyclerView.ViewHolder {
     private ImageView recipeViewItem;
     private TextView recipeName;
+    private TextView ingredientsTextView;
 
     public RecipeViewHolder(@NonNull View itemView) {
         super(itemView);
         recipeViewItem = itemView.findViewById(R.id.image);
         recipeName = itemView.findViewById(R.id.recipe_name);
+        ingredientsTextView = itemView.findViewById(R.id.ingredients);
     }
 
     static RecipeViewHolder create(ViewGroup parent) {
@@ -31,5 +33,17 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
     public void bind(Recipe recipe) {
         recipeViewItem.setImageResource(recipe.getImage());
         recipeName.setText(recipe.getName());
+
+        StringBuilder ingredientsBuilder = new StringBuilder();
+        for (String ingredient : recipe.getIngredients()) {
+            ingredientsBuilder.append(ingredient).append(", ");
+        }
+
+        String ingredientsText = ingredientsBuilder.toString().trim();
+        if (ingredientsText.endsWith(",")) {
+            ingredientsText = ingredientsText.substring(0, ingredientsText.length() - 1);
+        }
+
+        ingredientsTextView.setText("Ingredients: " + ingredientsText);
     }
 }

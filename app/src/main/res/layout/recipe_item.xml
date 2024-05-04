@@ -35,5 +35,18 @@
             android:textStyle="bold"
             tools:text="Turkey and Hummus Wrapppp" />
 
+        <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_name"
+        android:layout_toEndOf="@id/image"
+        android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:text="Ingredients: Oats, Milk, Salt" />
+
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
