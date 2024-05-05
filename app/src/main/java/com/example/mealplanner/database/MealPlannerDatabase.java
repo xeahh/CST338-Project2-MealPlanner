@@ -11,6 +11,7 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mealplanner.MainActivity;
+import com.example.mealplanner.R;
 import com.example.mealplanner.database.entities.MealPlanner;
 import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.database.entities.User;
@@ -20,11 +21,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 3, exportSchema = false)
+@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 5, exportSchema = false)
 public abstract class MealPlannerDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
     public static final String RECIPE_TABLE = "recipe_table";
-    private static final String DATABASE_NAME = "MealPlanner_database";
+    private static final String DATABASE_NAME = "MealPlannerDatabase2";
     public static final String MEAL_PLANNER_TABLE = "mealPlannerTable";
 
     private static volatile MealPlannerDatabase INSTANCE;
@@ -68,6 +69,11 @@ public abstract class MealPlannerDatabase extends RoomDatabase {
                 dao.insert(testUser1);
 
                 RecipeDAO recipeDAO = INSTANCE.recipeDAO();
+                recipeDAO.deleteAll();
+                recipeDAO.insert(new Recipe(R.drawable.oatmeal, "Oatmeal"));
+                recipeDAO.insert(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs"));
+                recipeDAO.insert(new Recipe(R.drawable.chickentacos, "Chicken Tacos"));
+                recipeDAO.insert(new Recipe(R.drawable.toast, "Toast"));
             });
         }
     };

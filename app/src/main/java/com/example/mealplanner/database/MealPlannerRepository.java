@@ -81,6 +81,12 @@ public class MealPlannerRepository {
         });
     }
 
+    public void insertRecipe(Recipe... recipe) {
+        MealPlannerDatabase.databaseWriteExecutor.execute(() -> {
+            recipeDAO.insert(recipe);
+        });
+    }
+
     public LiveData<User> getUserByUserName(String username) {
         return userDAO.getUserByUsername(username);
     }
@@ -102,5 +108,12 @@ public class MealPlannerRepository {
 
     public LiveData<List<Recipe>> getAllRecipes() {
         return recipeDAO.getAllRecipes();
+    }
+
+    public void deleteRecipe(Recipe recipe) {
+        MealPlannerDatabase.databaseWriteExecutor.execute(() ->
+        {
+            recipeDAO.delete(recipe);
+        });
     }
 }

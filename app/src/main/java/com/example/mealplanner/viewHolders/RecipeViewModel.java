@@ -16,10 +16,18 @@ public class RecipeViewModel extends AndroidViewModel {
     private final LiveData<List<Recipe>> allRecipes;
     public RecipeViewModel(@NonNull Application application) {
         super(application);
+        repository = MealPlannerRepository.getRepository(application);
         allRecipes = repository.getAllRecipes();
     }
 
     public LiveData<List<Recipe>> getAllRecipes() {
         return allRecipes;
+    }
+    public void insert(Recipe recipe) {
+        repository.insertRecipe(recipe);
+    }
+
+    public void deleteRecipe(Recipe recipe) {
+        repository.deleteRecipe(recipe);
     }
 }
