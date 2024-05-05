@@ -42,14 +42,12 @@ public class RecipesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
         ArrayList<Recipe> recipeList = new ArrayList<>();
         recipeList.add(new Recipe(R.drawable.oatmeal, "Oatmeal", Recipe.createIngredients("oats", "milk", "salt")));
         recipeList.add(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs", Recipe.createIngredients("bacon", "eggs")));
         recipeList.add(new Recipe(R.drawable.turkeyhummus, "Turkey and Hummus Wrap", Recipe.createIngredients("turkey", "hummus", "whole wheat wrap")));
         recipeList.add(new Recipe(R.drawable.chickentacos, "Chicken Tacos", Recipe.createIngredients("chicken", "tortillas")));
         recipeList.add(new Recipe(R.drawable.toast, "Toast", Recipe.createIngredients("bread", "butter")));
-
 
         adapter.submitList(recipeList);
 
