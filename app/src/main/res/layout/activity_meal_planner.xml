@@ -76,11 +76,29 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="@string/thursday"
+                    android:text="@string/tuesday"
                     android:textSize="28sp"/>
 
 
             </RelativeLayout>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/tue_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/tue_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/tue_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
 
             <RelativeLayout
@@ -102,6 +120,24 @@
 
 
             </RelativeLayout>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/wed_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/wed_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/wed_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
 
             <RelativeLayout
@@ -120,10 +156,26 @@
                     android:gravity="center"
                     android:text="@string/thursday"
                     android:textSize="28sp" />
-
-
             </RelativeLayout>
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/thu_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/thu_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/thu_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
 
             <RelativeLayout
@@ -147,6 +199,24 @@
 
             </RelativeLayout>
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fri_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fri_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fri_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -165,10 +235,26 @@
                     android:text="@string/saturday"
                     android:textSize="28sp" />
 
-
             </RelativeLayout>
 
-
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sat_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sat_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sat_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
 
             <RelativeLayout
@@ -187,12 +273,26 @@
                     android:gravity="center"
                     android:text="@string/sunday"
                     android:textSize="28sp" />
-
-
-
             </RelativeLayout>
 
-
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sun_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sun_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sun_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/recipe_item" />
 
 
 

@@ -11,13 +11,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mealplanner.database.entities.Recipe;
+import com.example.mealplanner.viewHolders.RecipeViewModel;
 
 public class RecipeFragment extends Fragment {
+    private RecipeViewModel recipeViewModel;
 
     public RecipeFragment() {
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Nullable
     @Override
@@ -33,4 +52,9 @@ public class RecipeFragment extends Fragment {
         imageView.setImageResource(selectedRecipe.getImage());
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

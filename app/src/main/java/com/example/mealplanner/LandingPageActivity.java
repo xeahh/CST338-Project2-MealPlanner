@@ -8,14 +8,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.example.mealplanner.database.MealPlannerRepository;
 import com.example.mealplanner.database.entities.User;
-import com.example.mealplanner.databinding.ActivityLoginBinding;
 import com.example.mealplanner.databinding.LandingPageBinding;
 
 
@@ -129,7 +127,6 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Remove the observer to avoid memory leaks
         repository.getUserByUserId(loggedInUserId).removeObservers(this);
     }
 

@@ -12,10 +12,30 @@ public class MealPlanner {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private LocalDateTime date;
-    private int userId;
+    private int recipeId;
 
-    public MealPlanner(int userId) {
-        this.userId = userId;
+    private String day;
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    private String time;
+
+    public MealPlanner() {
+
     }
 
     public int getId() {
@@ -34,11 +54,11 @@ public class MealPlanner {
         this.date = date;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setRecipeId(int userId) {
+        this.recipeId = recipeId;
     }
 }

@@ -21,11 +21,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 5, exportSchema = false)
+@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 6, exportSchema = false)
 public abstract class MealPlannerDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
     public static final String RECIPE_TABLE = "recipe_table";
-    private static final String DATABASE_NAME = "MealPlannerDatabase2";
+    private static final String DATABASE_NAME = "MealPlannerDatabase3";
     public static final String MEAL_PLANNER_TABLE = "mealPlannerTable";
 
     private static volatile MealPlannerDatabase INSTANCE;

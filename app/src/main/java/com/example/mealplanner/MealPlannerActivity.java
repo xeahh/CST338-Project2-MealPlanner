@@ -1,84 +1,82 @@
 package com.example.mealplanner;
 
-import static com.example.mealplanner.database.MealPlannerRepository.repository;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+
 
 import com.example.mealplanner.database.MealPlannerRepository;
+
 import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.databinding.ActivityMealPlannerBinding;
 import com.example.mealplanner.viewHolders.RecipeViewModel;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 
 public class MealPlannerActivity extends AppCompatActivity {
     public static final String PREF_NAME = "MealPlannerPrefs";
     public static final String KEY_SELECTED_RECIPES = "selected_recipes";
-    private Map<String, Map<String, Integer>> selectedRecipesMap;
+    public static final String KEY_SELECTED_RECIPE_ID = "selected_recipe_id";
+    public static final String KEY_SELECTED_DAY = "selected_day";
+    public static final String KEY_SELECTED_TIME = "selected_time";
     private ActivityMealPlannerBinding binding;
-    private RecipeFragment recipeFragment;
     private RecipeViewModel recipeViewModel;
+    private int loggedInUserId;
+    private static MealPlannerRepository repository;
+    private Map<String, Map<String, RecipeFragment>> fragmentMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityMealPlannerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         repository = MealPlannerRepository.getRepository(getApplication());
 
-        int loggedInUserId = getIntent().getIntExtra("userId", -1);
+        loggedInUserId = getIntent().getIntExtra("userId", -1);
         Log.d("MealPlannerActivityLogin", "Logged in user ID: " + loggedInUserId);
-        int recipeId = getIntent().getIntExtra("selected_recipe", 0);
-        String day = getIntent().getStringExtra("day");
-        String time = getIntent().getStringExtra("time");
+
+//        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
 
-        // Initialize ViewModel
-        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
-        loadSelectedRecipes(loggedInUserId);
-        updateFragmentsWithSelectedRecipes();
+//        recipeId = getIntent().getIntExtra("selected_recipe", 0);
+//        day = getIntent().getStringExtra("day");
+//        time = getIntent().getStringExtra("time");
 
-        recipeViewModel.getRecipeById(recipeId).observe(this, recipe -> {
-            if (recipe != null) {
-                if (day!=null&&day.equals("monday")) {
-                    if(time!=null&&time.equals("breakfast")) {
-                        // Find the RecipeFragment by tag
-                        RecipeFragment recipeFragment = (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_b_fragment);
-                        // Check if the fragment is not null
-                        if (recipeFragment != null) {
-                            // Call the updateRecipe method
-                            recipeFragment.updateRecipe(recipe);
-                            updateSelectedRecipes(day, time, recipeId);
-                            saveSelectedRecipes(loggedInUserId);
-                        }
-                    }
-                    if(time!=null&&time.equals("lunch")) {
-                        RecipeFragment recipeFragment = (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_l_fragment);
+        int recipeIdMondayBreakfast = getSelectedRecipeId("monday", "breakfast");
+        Log.d("MealPlannerActivity","recipe id breakfast: "+recipeIdMondayBreakfast);
+        int recipeIdMondayLunch = getSelectedRecipeId("monday", "lunch");
+        Log.d("MealPlannerActivity","recipe id lunc: "+recipeIdMondayLunch);
 
-                        if (recipeFragment != null) {
-                            recipeFragment.updateRecipe(recipe);
-                            updateSelectedRecipes(day, time, recipeId);
-                            saveSelectedRecipes(loggedInUserId);
-                        }
-                    }
+        Log.d("MealPlannerActivity", "Before calling updateSelectedRecipes()");
+
+        LiveData<Recipe> recipeObserver = repository.getRecipeById(recipeIdMondayBreakfast);
+        recipeObserver.observe(this, recipe -> {
+            Log.d("MealPlannerActivity", "recipeviewmodel.getrecipe");
+                RecipeFragment recipeFragment = findRecipeFragment("monday", "breakfast");
+                if (recipeFragment != null) {
+                    recipeFragment.updateRecipe(recipe);
+                    Log.d("MealPlannerActivity", "after calling breakfast updateSelectedRecipes()");
                 }
+
+        });
+
+        recipeObserver = repository.getRecipeById(recipeIdMondayLunch);
+        recipeObserver.observe(this, recipe -> {
+            RecipeFragment recipeFragment = findRecipeFragment("monday", "lunch");
+            if (recipeFragment != null) {
+                recipeFragment.updateRecipe(recipe);
+                Log.d("MealPlannerActivity", "after calling lunch updateSelectedRecipes()");
             }
         });
 
@@ -94,132 +92,161 @@ public class MealPlannerActivity extends AppCompatActivity {
                     .putExtra("day", "monday")
                     .putExtra("time", "breakfast"));
         });
+        binding.monLFragment.setOnClickListener(v -> {
+                    startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                            .putExtra("userId", loggedInUserId)
+                            .putExtra("day", "monday")
+                            .putExtra("time", "lunch"));
+        });
+        binding.monDFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "monday")
+                    .putExtra("time", "dinner"));
+        });
+        binding.tueBFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "tuesday")
+                    .putExtra("time", "breakfast"));
+        });
+        binding.tueLFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "tuesday")
+                    .putExtra("time", "lunch"));
+        });
+        binding.tueDFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "tuesday")
+                    .putExtra("time", "dinner"));
+        });
+        binding.wedBFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "wednesday")
+                    .putExtra("time", "breakfast"));
+        });
+        binding.wedLFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "wednesday")
+                    .putExtra("time", "lunch"));
+        });
+        binding.wedDFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "wednesday")
+                    .putExtra("time", "dinner"));
+        });
+        binding.thuBFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "thursday")
+                    .putExtra("time", "breakfast"));
+        });
+        binding.thuLFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "thursday")
+                    .putExtra("time", "lunch"));
+        });
+        binding.thuDFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "thursday")
+                    .putExtra("time", "dinner"));
+        });
+        binding.friBFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "friday")
+                    .putExtra("time", "breakfast"));
+        });
+        binding.friLFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "friday")
+                    .putExtra("time", "lunch"));
+        });
+        binding.friDFragment.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RecipesActivity.class)
+                    .putExtra("userId", loggedInUserId)
+                    .putExtra("day", "friday")
+                    .putExtra("time", "dinner"));
+        });
 
 
-    }
 
-    private void loadSelectedRecipes(int userId) {
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME + "_" + userId, Context.MODE_PRIVATE);
-        String selectedRecipesJson = preferences.getString(KEY_SELECTED_RECIPES, null);
-        if (selectedRecipesJson != null) {
-            selectedRecipesMap = parseSelectedRecipes(selectedRecipesJson);
-        } else {
-            selectedRecipesMap = new HashMap<>();
-        }
-    }
-
-    private void saveSelectedRecipes(int userId) {
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME + "_" + userId, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        String selectedRecipesJson = formatSelectedRecipes(selectedRecipesMap);
-        editor.putString(KEY_SELECTED_RECIPES, selectedRecipesJson);
-        editor.apply();
-    }
-
-    // Method to parse selected recipes JSON string to map
-    private Map<String, Map<String, Integer>> parseSelectedRecipes(String json) {
-        Map<String, Map<String, Integer>> resultMap = new HashMap<>();
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            Iterator<String> daysIterator = jsonObject.keys();
-            while (daysIterator.hasNext()) {
-                String day = daysIterator.next();
-                JSONObject dayObject = jsonObject.getJSONObject(day);
-                Map<String, Integer> timeMap = new HashMap<>();
-                Iterator<String> timesIterator = dayObject.keys();
-                while (timesIterator.hasNext()) {
-                    String time = timesIterator.next();
-                    int recipeId = dayObject.getInt(time);
-                    timeMap.put(time, recipeId);
-                }
-                resultMap.put(day, timeMap);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return resultMap;
-    }
-
-    // Method to format selected recipes map to JSON string
-    private String formatSelectedRecipes(Map<String, Map<String, Integer>> selectedRecipesMap) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            for (Map.Entry<String, Map<String, Integer>> dayEntry : selectedRecipesMap.entrySet()) {
-                String day = dayEntry.getKey();
-                Map<String, Integer> timeMap = dayEntry.getValue();
-                JSONObject dayObject = new JSONObject();
-                for (Map.Entry<String, Integer> timeEntry : timeMap.entrySet()) {
-                    String time = timeEntry.getKey();
-                    int recipeId = timeEntry.getValue();
-                    dayObject.put(time, recipeId);
-                }
-                jsonObject.put(day, dayObject);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
-    }
-
-    // Method to update selected recipes in the map
-    private void updateSelectedRecipes(String day, String time, int recipeId) {
-        if (!selectedRecipesMap.containsKey(day)) {
-            selectedRecipesMap.put(day, new HashMap<>());
-        }
-        selectedRecipesMap.get(day).put(time, recipeId);
-    }
-
-    // Method to get selected recipe for a given day and time
-    private int getSelectedRecipe(String day, String time) {
-        if (selectedRecipesMap.containsKey(day)) {
-            Map<String, Integer> dayMap = selectedRecipesMap.get(day);
-            if (dayMap.containsKey(time)) {
-                return dayMap.get(time);
-            }
-        }
-        return 0;
-    }
-
-    private void updateFragmentsWithSelectedRecipes() {
-        for (Map.Entry<String, Map<String, Integer>> entry : selectedRecipesMap.entrySet()) {
-            String day = entry.getKey();
-            Map<String, Integer> timeMap = entry.getValue();
-            for (Map.Entry<String, Integer> timeEntry : timeMap.entrySet()) {
-                String time = timeEntry.getKey();
-                int recipeId = timeEntry.getValue();
-                // Get the RecipeFragment based on day and time, then update it
-                updateRecipeFragment(day, time, recipeId);
-            }
-        }
-    }
-
-
-    private void updateRecipeFragment(String day, String time, int recipeId) {
-        if (day != null && time != null && recipeId > 0) {
-            RecipeFragment recipeFragment = findRecipeFragment(day, time);
-            if (recipeFragment != null) {
-                recipeViewModel.getRecipeById(recipeId).observe(this, recipe -> {
-                    if (recipe != null) {
-                        recipeFragment.updateRecipe(recipe);
-                    }
-                });
-            }
-        }
     }
 
 
     private RecipeFragment findRecipeFragment(String day, String time) {
         if (day != null && time != null) {
-            if (day.equals("monday")) {
-                if (time.equals("breakfast")) {
-                    return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_b_fragment);
-                } else if (time.equals("lunch")) {
-                    return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_l_fragment);
-                }
+            switch (time) {
+                case "breakfast":
+                    switch (day) {
+                        case "monday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_b_fragment);
+                        case "tuesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.tue_b_fragment);
+                        case "wednesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.wed_b_fragment);
+                    }
+                    break;
+                case "lunch":
+                    switch (day) {
+                        case "monday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_l_fragment);
+                        case "tuesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.tue_l_fragment);
+                        case "wednesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.wed_l_fragment);
+                    }
+                    break;
+                case "dinner":
+                    switch (day) {
+                        case "monday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.mon_d_fragment);
+                        case "tuesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.tue_d_fragment);
+                        case "wednesday":
+                            return (RecipeFragment) getSupportFragmentManager().findFragmentById(R.id.wed_d_fragment);
+                    }
+                    break;
             }
-            // Add cases for other days and times as needed
         }
         return null;
     }
+
+    private void displaySelectedRecipeFragments(int recipeId, String day, String time) {
+        for (Map<String, RecipeFragment> timeMap : fragmentMap.values()) {
+            for (RecipeFragment fragment : timeMap.values()) {
+                if (fragment != null) {
+                    recipeViewModel.getRecipeById(recipeId).observe(this, recipe -> {
+                        if (recipe != null) {
+                            fragment.updateRecipe(recipe);
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    private int getSelectedRecipeId(String day, String time) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String key = KEY_SELECTED_RECIPE_ID + "_" + day + "_" + time;
+        return sharedPreferences.getInt(key, 0); // 0 is the default value if the key doesn't exist
+    }
+
+    private void saveSelectedRecipe(int recipeId, String day, String time) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String key = KEY_SELECTED_RECIPE_ID + "_" + day + "_" + time;
+        editor.putInt(key, recipeId);
+        editor.apply();
+    }
+
 
 }
