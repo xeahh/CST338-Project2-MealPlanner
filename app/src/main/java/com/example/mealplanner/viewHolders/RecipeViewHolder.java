@@ -34,16 +34,6 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         recipeViewItem.setImageResource(recipe.getImage());
         recipeName.setText(recipe.getName());
 
-        StringBuilder ingredientsBuilder = new StringBuilder();
-        for (String ingredient : recipe.getIngredients()) {
-            ingredientsBuilder.append(ingredient).append(", ");
-        }
-
-        String ingredientsText = ingredientsBuilder.toString().trim();
-        if (ingredientsText.endsWith(",")) {
-            ingredientsText = ingredientsText.substring(0, ingredientsText.length() - 1);
-        }
-
-        ingredientsTextView.setText("Ingredients: " + ingredientsText);
+        ingredientsTextView.setText("Ingredients: ");
     }
 }

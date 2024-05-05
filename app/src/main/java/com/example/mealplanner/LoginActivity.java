@@ -25,7 +25,17 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (repository == null) {
+            Log.e("LoginActivity", "MealPlannerRepository is null");
+        }
+
         repository = MealPlannerRepository.getRepository(getApplication());
+
+        if (repository == null) {
+            Log.e("LoginActivity", "Failed to initialize MealPlannerRepository");
+        } else {
+            Log.d("LoginActivity", "MealPlannerRepository initialized successfully");
+        }
         binding.loginButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -54,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
             toastMaker("Username may not be blank");
             return;
         }
+        if (repository == null) {
+            toastMaker("Repository is not initialized");
+            return;
+        }
         LiveData<User> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this,user -> {
             if (user != null) {
@@ -71,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 toastMaker(String.format("%s is not a valid username", username));
                 binding.editUsername.setSelection(0);
             }
+            userObserver.removeObservers(this);
         });
     }
 

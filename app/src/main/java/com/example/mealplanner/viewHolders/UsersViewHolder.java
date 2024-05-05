@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.database.entities.User;
 
 public class UsersViewHolder extends RecyclerView.ViewHolder {
     private final TextView userViewItem;
@@ -26,7 +25,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onDeleteClick(position);;
+                    listener.onDeleteClick(position);
                 }
             }
         });

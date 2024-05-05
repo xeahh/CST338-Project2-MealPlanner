@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealplanner.MainActivity;
 import com.example.mealplanner.database.entities.MealPlanner;
+import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.database.entities.User;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.concurrent.Future;
 public class MealPlannerRepository {
     private final MealPlannerDAO mealPlannerDAO;
     private final UserDAO userDAO;
+    private final RecipeDAO recipeDAO;
     private ArrayList<MealPlanner> allLogs;
 
     public static MealPlannerRepository repository;
@@ -26,6 +28,7 @@ public class MealPlannerRepository {
         MealPlannerDatabase db = MealPlannerDatabase.getDatabase(application);
         this.mealPlannerDAO = db.mealPlannerDAO();
         this.userDAO = db.userDAO();
+        this.recipeDAO = db.recipeDAO();
         this.allLogs = (ArrayList<MealPlanner>) this.mealPlannerDAO.getAllRecords();
     }
     public static MealPlannerRepository getRepository(Application application) {
@@ -95,5 +98,9 @@ public class MealPlannerRepository {
         {
             userDAO.delete(user);
         });
+    }
+
+    public LiveData<List<Recipe>> getAllRecipes() {
+        return recipeDAO.getAllRecipes();
     }
 }
