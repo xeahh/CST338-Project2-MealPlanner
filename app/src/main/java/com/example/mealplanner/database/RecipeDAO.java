@@ -24,4 +24,7 @@ public interface RecipeDAO {
 
     @Delete
     void delete(Recipe recipe);
+
+    @Query("SELECT * FROM "+MealPlannerDatabase.RECIPE_TABLE+" WHERE id == :recipeId")
+    LiveData<Recipe> getRecipeById(int recipeId);
 }

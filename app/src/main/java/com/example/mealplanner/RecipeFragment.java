@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mealplanner.database.entities.Recipe;
 
-public class MyFragment extends Fragment {
+public class RecipeFragment extends Fragment {
 
-    public MyFragment() {
+    public RecipeFragment() {
     }
 
     @Nullable
@@ -32,4 +32,5 @@ public class MyFragment extends Fragment {
         ImageView imageView = getView().findViewById(R.id.image);
         imageView.setImageResource(selectedRecipe.getImage());
     }
+
 }

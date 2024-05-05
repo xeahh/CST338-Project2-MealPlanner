@@ -28,6 +28,16 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         ingredientsTextView = itemView.findViewById(R.id.ingredients);
         deleteButton = itemView.findViewById(R.id.deleteRecipe);
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position);
+                }
+            }
+        });
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

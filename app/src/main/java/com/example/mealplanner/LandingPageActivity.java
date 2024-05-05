@@ -68,6 +68,7 @@ public class LandingPageActivity extends AppCompatActivity {
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearSharedPreferences();
                 Intent intent = new Intent(LandingPageActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -92,6 +93,11 @@ public class LandingPageActivity extends AppCompatActivity {
             return;
         }
 
+        // Save the user ID in SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(SHARED_PREFERENCE_USERID_VALUE, loggedInUserId);
+        editor.apply();
+
         Log.d("LandingPageActivity", "Using userId: " + loggedInUserId);
 
         LiveData<User> userObserver = repository.getUserByUserId(loggedInUserId);
@@ -111,6 +117,20 @@ public class LandingPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void clearSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        loggedInUserId = LOGGED_OUT;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Remove the observer to avoid memory leaks
+        repository.getUserByUserId(loggedInUserId).removeObservers(this);
     }
 
 }

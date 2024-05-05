@@ -39,6 +39,8 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeViewHolder> {
 
     public interface OnItemClickListener {
         void onDeleteClick(int position);
+
+        void onItemClick(int position);
     }
 
     public static class RecipeDiff extends DiffUtil.ItemCallback<Recipe> {

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.mealplanner.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private MealPlannerRepository repository;
+    private int loggedInUserId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +74,12 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 String password = binding.editPassword.getText().toString();
                 if (password.equals(user.getPassword())){
+                    loggedInUserId = user.getId();
                     Log.d("MyTag", "user.getId() "+user.getId());
                     startActivity(new Intent(LoginActivity.this, LandingPageActivity.class)
-                            .putExtra("userId", user.getId()));
+                            .putExtra("userId", loggedInUserId));
                     finish();
+                    clearSelectedRecipes();
                 } else {
                     toastMaker("Invalid password.");
                     binding.editPassword.setSelection(0);
@@ -92,7 +96,8 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    static Intent loginIntentFactory(Context context) {
-        return new Intent(context, LoginActivity.class);
+    private void clearSelectedRecipes() {
+        SharedPreferences preferences = getSharedPreferences(MealPlannerActivity.PREF_NAME, Context.MODE_PRIVATE);
+        preferences.edit().remove(MealPlannerActivity.KEY_SELECTED_RECIPES).apply();
     }
 }

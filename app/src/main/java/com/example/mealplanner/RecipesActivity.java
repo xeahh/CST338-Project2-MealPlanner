@@ -41,6 +41,8 @@ public class RecipesActivity extends AppCompatActivity {
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
         int loggedInUserId = getIntent().getIntExtra("userId", -1);
+        String day = getIntent().getStringExtra("day");
+        String time = getIntent().getStringExtra("time");
 
         binding.toolbar.setNavigationIcon(R.drawable.arrow);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,8 @@ public class RecipesActivity extends AppCompatActivity {
                         .putExtra("userId", loggedInUserId));
             }
         });
+
+
 
         RecyclerView recyclerView = binding.recipesRecyclerview;
         final RecipeAdapter adapter = new RecipeAdapter(new RecipeAdapter.RecipeDiff());
@@ -61,35 +65,29 @@ public class RecipesActivity extends AppCompatActivity {
 //        Recipe recipe = new Recipe(R.drawable.turkeyhummus, "Turkey and Hummus Wrap");
 //        repository.insertRecipe(recipe);
 
-//        recipeList.add(new Recipe(R.drawable.oatmeal, "Oatmeal"));
-//        recipeList.add(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs"));
-//        recipeList.add(new Recipe(R.drawable.chickentacos, "Chicken Tacos"));
-//        recipeList.add(new Recipe(R.drawable.toast, "Toast"));
-
-
 
         recipeViewModel.getAllRecipes().observe(this, recipeList -> {
             adapter.submitList(recipeList);
         });
-//
 
-
-//        adapter.setListener(new RecipeAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Recipe recipe = adapter.getCurrentList().get(position);
-//                Intent intent = new Intent();
-//                intent.putExtra("selected_recipe", recipe.getName());
-//                setResult(RESULT_OK, intent);
-//                finish();
-//            }
-//        });
 
         adapter.setListener(new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(int position) {
                 Recipe recipe = adapter.getCurrentList().get(position);
                 recipeViewModel.deleteRecipe(recipe);
+            }
+            @Override
+            public void onItemClick(int position) {
+                Recipe recipe = adapter.getCurrentList().get(position);
+                Log.i("DAY_AND_TIME", recipe.getName());
+                if (day!=null && time!=null) {
+                    startActivity(new Intent(getApplicationContext(),MealPlannerActivity.class)
+                            .putExtra("userId", loggedInUserId)
+                            .putExtra("selected_recipe",recipe.getId())
+                            .putExtra("day", day)
+                            .putExtra("time", time));
+                }
             }
         });
 

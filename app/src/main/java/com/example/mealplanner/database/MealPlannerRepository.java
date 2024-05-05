@@ -95,6 +95,10 @@ public class MealPlannerRepository {
         return userDAO.getUserById(loggedInUserId);
     }
 
+    public LiveData<Recipe> getRecipeById(int recipeId) {
+        return recipeDAO.getRecipeById(recipeId);
+    }
+
     public LiveData<List<User>> getAllUsers() {
         return userDAO.getAllUsers();
     }

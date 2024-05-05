@@ -14,6 +14,7 @@ import java.util.List;
 public class RecipeViewModel extends AndroidViewModel {
     private MealPlannerRepository repository;
     private final LiveData<List<Recipe>> allRecipes;
+    private LiveData<Recipe> recipeLiveData;
     public RecipeViewModel(@NonNull Application application) {
         super(application);
         repository = MealPlannerRepository.getRepository(application);
@@ -22,6 +23,13 @@ public class RecipeViewModel extends AndroidViewModel {
 
     public LiveData<List<Recipe>> getAllRecipes() {
         return allRecipes;
+    }
+
+    public LiveData<Recipe> getRecipeById(int recipeId) {
+        if (recipeLiveData == null) {
+            recipeLiveData = repository.getRecipeById(recipeId);
+        }
+        return recipeLiveData;
     }
     public void insert(Recipe recipe) {
         repository.insertRecipe(recipe);

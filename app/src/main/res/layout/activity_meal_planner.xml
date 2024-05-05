@@ -31,7 +31,7 @@
                 <TextView
                     android:id="@+id/monday"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
@@ -44,20 +44,20 @@
             </RelativeLayout>
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/myFragment"
-                android:name="com.example.mealplanner.MyFragment"
+                android:id="@+id/mon_b_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/recipe_item" />
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/myFragment2"
-                android:name="com.example.mealplanner.MyFragment"
+                android:id="@+id/mon_l_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/recipe_item" />
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/myFragment3"
-                android:name="com.example.mealplanner.MyFragment"
+                android:id="@+id/mon_d_fragment"
+                android:name="com.example.mealplanner.RecipeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/recipe_item" />
@@ -70,13 +70,13 @@
                 <TextView
                     android:id="@+id/tuesday"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="Tuesday"
+                    android:text="@string/thursday"
                     android:textSize="28sp"/>
 
 
@@ -91,7 +91,7 @@
                 <TextView
                     android:id="@+id/wednesday"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
@@ -112,13 +112,13 @@
                 <TextView
                     android:id="@+id/thursday"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="Thursday"
+                    android:text="@string/thursday"
                     android:textSize="28sp" />
 
 
@@ -134,13 +134,13 @@
                 <TextView
                     android:id="@+id/friday"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="Friday"
+                    android:text="@string/friday"
                     android:textSize="28sp" />
 
 
@@ -162,7 +162,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="Saturday"
+                    android:text="@string/saturday"
                     android:textSize="28sp" />
 
 
@@ -185,7 +185,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:gravity="center"
-                    android:text="Sunday"
+                    android:text="@string/sunday"
                     android:textSize="28sp" />
 
 
