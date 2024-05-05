@@ -11,7 +11,9 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mealplanner.MainActivity;
+import com.example.mealplanner.R;
 import com.example.mealplanner.database.entities.MealPlanner;
+import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.database.entities.User;
 import com.example.mealplanner.database.typeConverters.LocalDateTypeConverter;
 
@@ -19,10 +21,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {MealPlanner.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 3, exportSchema = false)
 public abstract class MealPlannerDatabase extends RoomDatabase {
+
+    public static final String INGREDIENT_TABLE = "ingredient_table";
+    private static final String DATABASE_NAME = "Meal_Planner_database";
     public static final String USER_TABLE = "user_table";
-    private static final String DATABASE_NAME = "MealPlanner_database";
+    public static final String RECIPE_TABLE = "recipe_table";
     public static final String MEAL_PLANNER_TABLE = "mealPlannerTable";
 
     private static volatile MealPlannerDatabase INSTANCE;
@@ -33,6 +38,8 @@ public abstract class MealPlannerDatabase extends RoomDatabase {
     public abstract MealPlannerDAO mealPlannerDAO();
 
     public abstract UserDAO userDAO();
+    public abstract RecipeDAO recipeDAO();
+
 
     public static MealPlannerDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -62,6 +69,13 @@ public abstract class MealPlannerDatabase extends RoomDatabase {
                 dao.insert(admin);
                 User testUser1 = new User("testuser1", "testuser1");
                 dao.insert(testUser1);
+
+
+                RecipeDAO recipeDAO = INSTANCE.recipeDAO();
+                Recipe recipe = new Recipe(R.drawable.turkeyhummus, "Turkey and Hummus Wrap");
+                recipeDAO.insert(new Recipe(R.drawable.oatmeal, "Oatmeal"));
+                recipeDAO.insert(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs"));
+                int recipeId = recipe.getId();
             });
         }
     };

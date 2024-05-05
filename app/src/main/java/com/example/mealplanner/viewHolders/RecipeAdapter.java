@@ -1,26 +1,37 @@
 package com.example.mealplanner.viewHolders;
 
-
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+
 import com.example.mealplanner.database.entities.Recipe;
 
-
 public class RecipeAdapter extends ListAdapter<Recipe, RecipeViewHolder> {
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public RecipeAdapter(@NonNull DiffUtil.ItemCallback<Recipe> diffCallback) {
         super(diffCallback);
     }
 
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return RecipeViewHolder.create(parent);
+        return RecipeViewHolder.create(parent, listener);
     }
 
     @Override
@@ -33,7 +44,7 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeViewHolder> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Recipe oldItem, @NonNull Recipe newItem) {
-            return oldItem==newItem;
+            return oldItem.getId() == newItem.getId();
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.example.mealplanner.database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -67,6 +68,7 @@ public class User {
         isAdmin = admin;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return username;

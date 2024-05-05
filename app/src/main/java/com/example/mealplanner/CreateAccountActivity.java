@@ -65,7 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity  {
 
                     finish();
                 } else {
-                    toastMaker("Passwords do not match.");
+                    toastMaker("Passwords do not match");
                     binding.editPassword.setSelection(0);
                 }
             } else { // Username already exists
