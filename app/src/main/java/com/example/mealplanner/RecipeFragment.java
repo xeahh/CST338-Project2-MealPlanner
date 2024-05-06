@@ -45,7 +45,6 @@ public class RecipeFragment extends Fragment {
     }
 
     public void updateRecipe(Recipe selectedRecipe) {
-        Log.i("myfragment", selectedRecipe.toString());
         TextView recipeNameTextView = getView().findViewById(R.id.recipe_name);
         recipeNameTextView.setText(selectedRecipe.getName());
         ImageView imageView = getView().findViewById(R.id.image);

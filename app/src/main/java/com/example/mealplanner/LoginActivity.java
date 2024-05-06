@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mealplanner.database.MealPlannerRepository;
@@ -20,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private MealPlannerRepository repository;
     private int loggedInUserId = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Log.d("LoginActivity", "MealPlannerRepository initialized successfully");
         }
-        binding.loginButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyUser();
-            }
-        });
+        binding.loginButton2.setOnClickListener(v -> verifyUser());
 
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        binding.backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
 
 

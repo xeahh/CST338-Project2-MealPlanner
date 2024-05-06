@@ -36,6 +36,9 @@ public class RecipesActivity extends AppCompatActivity {
     private ActivityRecipesBinding binding;
     private MealPlannerRepository repository;
     private RecipeViewModel recipeViewModel;
+    public static final String SHARED_PREFERENCE_USERID_KEY = "com.example.mealplanner.SHARED_PREFERENCE_USERID_KEY";
+    private static final String SHARED_PREFERENCE_USERID_VALUE = "com.example.mealplanner.SHARED_PREFERENCE_USERID_VALUE";
+    private int loggedInUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,11 @@ public class RecipesActivity extends AppCompatActivity {
         repository = MealPlannerRepository.getRepository(getApplication());
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
-        int loggedInUserId = getIntent().getIntExtra("userId", -1);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_USERID_KEY,
+                Context.MODE_PRIVATE);
+        loggedInUserId = sharedPreferences.getInt(SHARED_PREFERENCE_USERID_VALUE, -1);
+
+//        int loggedInUserId = getIntent().getIntExtra("userId", -1);
         String day = getIntent().getStringExtra("day");
         String time = getIntent().getStringExtra("time");
 
@@ -88,7 +95,7 @@ public class RecipesActivity extends AppCompatActivity {
     private void saveSelectedRecipe(int recipeId, String day, String time) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String key = KEY_SELECTED_RECIPE_ID + "_" + day + "_" + time;
+        String key = KEY_SELECTED_RECIPE_ID+"_"+loggedInUserId + "_" + day + "_" + time;
         Log.d("saveselectedrecipe", "key: "+ key+"recipeId: "+recipeId);
         editor.putInt(key, recipeId);
         editor.apply();
