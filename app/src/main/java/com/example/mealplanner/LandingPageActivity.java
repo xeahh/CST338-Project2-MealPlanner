@@ -93,6 +93,7 @@ public class LandingPageActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
+                binding.title.setText(String.format("Welcome %s", user.getUsername()));
                 Log.d("LandingPageActivity", "User loaded: " + user);
                 invalidateOptionsMenu();
                 if (user.isAdmin()) {
