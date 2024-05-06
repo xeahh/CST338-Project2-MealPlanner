@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 6, exportSchema = false)
+@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 12, exportSchema = false)
 public abstract class MealPlannerDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
     public static final String RECIPE_TABLE = "recipe_table";

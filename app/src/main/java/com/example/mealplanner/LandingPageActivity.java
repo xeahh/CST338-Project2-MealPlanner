@@ -63,6 +63,14 @@ public class LandingPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.logsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LandingPageActivity.this, MealPlannerLogsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +114,10 @@ public class LandingPageActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
                 if (user.isAdmin()) {
                     binding.usersButton.setVisibility(View.VISIBLE);
+                    binding.logsButton.setVisibility(View.VISIBLE);
                 } else {
                     binding.usersButton.setVisibility(View.GONE);
+                    binding.logsButton.setVisibility(View.GONE);
                 }
             }
             else {

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealplanner.database.MealPlannerRepository;
 
+import com.example.mealplanner.database.entities.MealPlanner;
 import com.example.mealplanner.database.entities.Recipe;
 import com.example.mealplanner.databinding.ActivityMealPlannerBinding;
 
@@ -25,7 +26,7 @@ public class MealPlannerActivity extends AppCompatActivity {
     public static final String KEY_SELECTED_DAY = "selected_day";
     public static final String KEY_SELECTED_TIME = "selected_time";
     public static final String SHARED_PREFERENCE_USERID_KEY = "com.example.mealplanner.SHARED_PREFERENCE_USERID_KEY";
-    private static final String SHARED_PREFERENCE_USERID_VALUE = "com.example.mealplanner.SHARED_PREFERENCE_USERID_VALUE";
+    public static final String SHARED_PREFERENCE_USERID_VALUE = "com.example.mealplanner.SHARED_PREFERENCE_USERID_VALUE";
     MealPlannerRepository repository;
     private int loggedInUserId;
     @Override
@@ -158,11 +159,16 @@ public class MealPlannerActivity extends AppCompatActivity {
             RecipeFragment recipeFragment = findRecipeFragment(day, time);
             if (recipeFragment != null) {
                 recipeFragment.updateRecipe(recipe);
+                saveSelectedRecipeToMealPlanner(recipeId, day, time);
             }
         });
     }
 
 
+    private void saveSelectedRecipeToMealPlanner(int recipeId, String day, String time) {
+        MealPlanner mealPlanner = new MealPlanner(loggedInUserId, recipeId, day, time);
+        repository.insertMealPlanner(mealPlanner);
+    }
 
     private RecipeFragment findRecipeFragment(String day, String time) {
         if (day != null && time != null) {

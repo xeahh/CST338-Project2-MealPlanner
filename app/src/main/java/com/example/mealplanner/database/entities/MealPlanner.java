@@ -6,15 +6,18 @@ import androidx.room.PrimaryKey;
 import com.example.mealplanner.database.MealPlannerDatabase;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity(tableName = MealPlannerDatabase.MEAL_PLANNER_TABLE)
 public class MealPlanner {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private LocalDateTime date;
+
     private int recipeId;
+    private int userId;
 
     private String day;
+    private String time;
 
     public String getDay() {
         return day;
@@ -32,10 +35,19 @@ public class MealPlanner {
         this.time = time;
     }
 
-    private String time;
+    public int getUserId() {
+        return userId;
+    }
 
-    public MealPlanner() {
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
+    public MealPlanner(int userId, int recipeId, String day, String time) {
+        this.userId = userId;
+        this.recipeId = recipeId;
+        this.day = day;
+        this.time = time;
     }
 
     public int getId() {
@@ -46,12 +58,26 @@ public class MealPlanner {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MealPlanner that = (MealPlanner) o;
+        return id == that.id && recipeId == that.recipeId && userId == that.userId && Objects.equals(day, that.day) && Objects.equals(time, that.time);
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, recipeId, userId, day, time);
+    }
+
+    @Override
+    public String toString() {
+        return "MealPlanner: " +
+                "recipeId=" + recipeId +
+                ", userId=" + userId +
+                ", day=" + day
+                + "/n";
     }
 
     public int getRecipeId() {

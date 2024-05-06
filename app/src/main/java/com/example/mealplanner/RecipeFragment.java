@@ -1,7 +1,6 @@
 package com.example.mealplanner;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mealplanner.database.entities.Recipe;
-import com.example.mealplanner.viewHolders.RecipeViewModel;
+
 
 public class RecipeFragment extends Fragment {
-    private RecipeViewModel recipeViewModel;
 
     public RecipeFragment() {
     }

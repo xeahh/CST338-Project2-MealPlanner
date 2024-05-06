@@ -96,7 +96,6 @@ public class RecipesActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String key = KEY_SELECTED_RECIPE_ID+"_"+loggedInUserId + "_" + day + "_" + time;
-        Log.d("saveselectedrecipe", "key: "+ key+"recipeId: "+recipeId);
         editor.putInt(key, recipeId);
         editor.apply();
     }
