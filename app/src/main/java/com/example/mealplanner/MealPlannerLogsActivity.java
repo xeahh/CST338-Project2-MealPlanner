@@ -33,13 +33,8 @@ public class MealPlannerLogsActivity extends AppCompatActivity {
         loggedInUserId = sharedPreferences.getInt(MealPlannerActivity.SHARED_PREFERENCE_USERID_VALUE, -1);
 
         binding.toolbar.setNavigationIcon(R.drawable.arrow);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LandingPageActivity.class)
-                        .putExtra("userId", loggedInUserId));
-            }
-        });
+        binding.toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(getApplicationContext(), LandingPageActivity.class)
+                .putExtra("userId", loggedInUserId)));
 
         ArrayList<MealPlanner> allLogs = repository.getAllLogs();
 

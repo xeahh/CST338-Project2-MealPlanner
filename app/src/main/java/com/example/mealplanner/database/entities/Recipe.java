@@ -5,8 +5,6 @@ import androidx.room.PrimaryKey;
 
 import com.example.mealplanner.database.MealPlannerDatabase;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 @Entity(tableName = MealPlannerDatabase.RECIPE_TABLE)
@@ -14,6 +12,15 @@ public class Recipe {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int image;
+    private String ingredients;
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String newIngredients) {
+        ingredients = newIngredients;
+    }
 
     public int getId() {
         return id;

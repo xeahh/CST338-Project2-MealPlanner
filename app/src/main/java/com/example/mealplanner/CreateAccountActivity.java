@@ -2,8 +2,6 @@ package com.example.mealplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,20 +24,10 @@ public class CreateAccountActivity extends AppCompatActivity  {
 
         repository = MealPlannerRepository.getRepository(getApplication());
 
-        binding.createAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyUser();
-            }
-        });
+        binding.createAccountButton.setOnClickListener(v -> verifyUser());
         binding.toolbar.setNavigationIcon(R.drawable.arrow);
 
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            }
-        });
+        binding.toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(getApplicationContext(),MainActivity.class)));
     }
     private void verifyUser() {
         String username = binding.editUsername.getText().toString();

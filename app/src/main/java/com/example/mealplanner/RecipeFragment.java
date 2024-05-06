@@ -46,6 +46,7 @@ public class RecipeFragment extends Fragment {
         recipeNameTextView.setText(selectedRecipe.getName());
         ImageView imageView = getView().findViewById(R.id.image);
         imageView.setImageResource(selectedRecipe.getImage());
+
     }
 
     @NonNull

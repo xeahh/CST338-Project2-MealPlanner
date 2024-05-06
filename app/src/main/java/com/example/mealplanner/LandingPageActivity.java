@@ -40,45 +40,28 @@ public class LandingPageActivity extends AppCompatActivity {
 
         loginUser(savedInstanceState);
 
-        binding.mealplannerbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LandingPageActivity.this, MealPlannerActivity.class)
-                        .putExtra("userId", loggedInUserId);
-                startActivity(intent);
-            }
+        binding.mealplannerbutton.setOnClickListener(v -> {
+            Intent intent = new Intent(LandingPageActivity.this, MealPlannerActivity.class)
+                    .putExtra("userId", loggedInUserId);
+            startActivity(intent);
         });
-        binding.recipesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LandingPageActivity.this, RecipesActivity.class)
-                        .putExtra("userId", loggedInUserId));
-            }
+        binding.recipesButton.setOnClickListener(v -> startActivity(new Intent(LandingPageActivity.this, RecipesActivity.class)
+                .putExtra("userId", loggedInUserId)));
+        binding.usersButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LandingPageActivity.this, UsersActivity.class)
+                    .putExtra("userId", loggedInUserId);
+            startActivity(intent);
         });
-        binding.usersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LandingPageActivity.this, UsersActivity.class)
-                        .putExtra("userId", loggedInUserId);
-                startActivity(intent);
-            }
+        binding.logsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LandingPageActivity.this, MealPlannerLogsActivity.class);
+            startActivity(intent);
+            finish();
         });
-        binding.logsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LandingPageActivity.this, MealPlannerLogsActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearSharedPreferences();
-                Intent intent = new Intent(LandingPageActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        binding.logoutButton.setOnClickListener(v -> {
+            clearSharedPreferences();
+            Intent intent = new Intent(LandingPageActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -110,7 +93,7 @@ public class LandingPageActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
-                Log.d("LandingPageActivity", "User loaded: " + user.toString());
+                Log.d("LandingPageActivity", "User loaded: " + user);
                 invalidateOptionsMenu();
                 if (user.isAdmin()) {
                     binding.usersButton.setVisibility(View.VISIBLE);

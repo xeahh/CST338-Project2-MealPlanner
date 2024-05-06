@@ -1,6 +1,7 @@
 package com.example.mealplanner.viewHolders;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,8 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
     public void bind(Recipe recipe, User user) {
         recipeViewItem.setImageResource(recipe.getImage());
         recipeName.setText(recipe.getName());
-
-        ingredientsTextView.setText("Ingredients: ");
+        Log.d("INGREDIENTS", recipe.getIngredients());
+        ingredientsTextView.setText(String.format("Ingredients: %s", recipe.getIngredients()));
 
     }
 }

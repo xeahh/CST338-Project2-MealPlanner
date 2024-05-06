@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 12, exportSchema = false)
+@Database(entities = {MealPlanner.class, User.class, Recipe.class}, version = 14, exportSchema = false)
 public abstract class MealPlannerDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
     public static final String RECIPE_TABLE = "recipe_table";
@@ -70,10 +70,18 @@ public abstract class MealPlannerDatabase extends RoomDatabase {
 
                 RecipeDAO recipeDAO = INSTANCE.recipeDAO();
                 recipeDAO.deleteAll();
-                recipeDAO.insert(new Recipe(R.drawable.oatmeal, "Oatmeal"));
-                recipeDAO.insert(new Recipe(R.drawable.baconandeggs, "Bacon and Eggs"));
-                recipeDAO.insert(new Recipe(R.drawable.chickentacos, "Chicken Tacos"));
-                recipeDAO.insert(new Recipe(R.drawable.toast, "Toast"));
+                Recipe recipe = new Recipe(R.drawable.oatmeal, "Oatmeal");
+                recipe.setIngredients("oats, milk, toppings");
+                recipeDAO.insert(recipe);
+                Recipe recipe1 = new Recipe(R.drawable.baconandeggs, "Bacon and Eggs");
+                recipe1.setIngredients("bacon, eggs");
+                recipeDAO.insert(recipe1);
+                Recipe recipe2 = new Recipe(R.drawable.chickentacos, "Chicken Tacos");
+                recipe2.setIngredients("chicken, tortillas, salsa");
+                recipeDAO.insert(recipe2);
+                Recipe recipe3 = new Recipe(R.drawable.toast, "Toast");
+                recipe3.setIngredients("bread");
+                recipeDAO.insert(recipe3);
             });
         }
     };

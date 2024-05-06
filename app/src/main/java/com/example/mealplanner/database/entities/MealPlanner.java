@@ -77,7 +77,7 @@ public class MealPlanner {
                 "recipeId=" + recipeId +
                 ", userId=" + userId +
                 ", day=" + day
-                + "/n";
+                + "\n";
     }
 
     public int getRecipeId() {

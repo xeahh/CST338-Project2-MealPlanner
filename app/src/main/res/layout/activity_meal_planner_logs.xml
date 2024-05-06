@@ -22,17 +22,22 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
-    <TextView
-        android:id="@+id/logs"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="650dp"
-        android:text="@string/logs"
-        android:padding="10dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="0.058" />
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/logs"
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:scrollbars="vertical"
+            android:text="@string/logs" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

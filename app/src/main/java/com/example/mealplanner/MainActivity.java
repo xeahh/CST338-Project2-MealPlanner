@@ -22,20 +22,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "IT WORKED", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
+        binding.loginButton.setOnClickListener(v -> {
+            //Toast.makeText(MainActivity.this, "IT WORKED", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
         
-        binding.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
-            }
-        });
+        binding.button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CreateAccountActivity.class)));
     }
 
 
