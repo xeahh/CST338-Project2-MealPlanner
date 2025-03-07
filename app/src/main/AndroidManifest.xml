@@ -10,8 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MealPlanner"
-        tools:targetApi="31">
+        android:theme="@style/Theme.MealPlanner">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".LandingPageActivity" />
+        <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".UsersActivity" />
+        <activity android:name=".MealPlannerActivity" />
+        <activity android:name=".RecipesActivity"/>
+        <activity android:name=".MealPlannerLogsActivity"/>
     </application>
 
 </manifest>
